@@ -1,3 +1,4 @@
 ## Solutions of AIZU ONLINE JUDGE(Programming Challenge)
-### The Code is solving to problem of Aizu Online Judge.
+### The Code is solving problems of Aizu Online Judge.
 #### ※Update anytime.
+#### Problems Of AOJ:http://judge.u-aizu.ac.jp/onlinejudge/
