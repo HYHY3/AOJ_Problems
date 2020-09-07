@@ -4,7 +4,7 @@ http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_13_A
 QueenInfo[i] = j: (row=i, col=j) has been placed a Queen
 
 placeQueen(curRow)
-    if curRow = 8				// index Of Row = 0 to 7
+    if curRow = 8		// index Of Row = 0 to 7
         show
         return
     
@@ -12,9 +12,9 @@ placeQueen(curRow)
         placeQueen(curRow + 1)
         return
     
-    for(j: 0 to 7)					// index Of Col
+    for(j: 0 to 7)			// index Of Col
         leftPos = curRow - j + 7;	// Queen State Of LeftDiagonal
-		rightPos = curRow + j;		// Queen State Of RightDiagonal
+		rightPos = curRow + j;	// Queen State Of RightDiagonal
 		if Col[j] = true OR LeftDiagonal[leftPos] = true OR RightDiagonal[rightPos] = true
 			continue;
 		
@@ -35,11 +35,11 @@ placeQueen(curRow)
     
 main
     //Init
-    QueenInfo[All] = -1			// No Queen has been placed
-    Col[All] = false			// the Queen state of Column
+    QueenInfo[All] = -1		// No Queen has been placed
+    Col[All] = false		// the Queen state of Column
     LeftDiagonal[All] = false	// the Queen state of LeftDiagonal
     RightDiagonal[All] = false	// the Queen state of RightDiagonal
     
-    placeQueen(0)				// index Of Row = 0 to 7
+    placeQueen(0)		// index Of Row = 0 to 7
     
     
