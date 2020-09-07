@@ -1,7 +1,5 @@
 http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_B
-
 http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C
-
 
 ※Graph = (Edge(m:the number of edges), Vertex(n:the number of Vertices)) save as adjacency list or adjacency matrix
 calculateShortestPathByDijkstra(startId)
@@ -15,7 +13,7 @@ calculateShortestPathByDijkstra(startId)
         curNode = nodelist.top		// curNode.first = the cost of startId to curId, curNode.second = curId
         nodelist.pop
         
-        if(visited[curId])
+        if visited[curId] = true
             continue
         visited[curId] = true;
         for(i: 1 to size)			// size = the count of adjacency vertex from curId
