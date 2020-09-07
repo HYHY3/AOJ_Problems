@@ -11,7 +11,7 @@ createMSTByKruskal()
           continue
       minCost += e.cost
       ++cntOfVertex
-      if(cntOfVertex == n - 1)
+      if cntOfVertex = n - 1
           return minCost //connected
   return Not connected
 
