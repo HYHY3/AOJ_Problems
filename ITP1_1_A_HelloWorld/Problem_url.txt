@@ -1,1 +1,3 @@
 http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A
+
+※Maybe "Hello World" is the first output for all computer language.

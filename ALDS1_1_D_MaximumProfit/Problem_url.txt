@@ -1,3 +1,10 @@
 http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_1_D
 
-※一次元配列の値Aj、Ai(j > iとする)に対して、Aj-Aiの最大値をO(n)で求める。
+※n個(A1, A2, A3, ... , An-1, An)の値Aj、Ai(j > iとする)に対しては、Aj - Aiの最大値をO(n)で求める。
+getMaxDiff()
+    minValue = A[1]
+    maxValue = A[]min - A[]max
+    
+    for(i: 2 to n)
+        maxValue = max(maxValue, A[i] - minValue)
+        minValue = min(minValue, A[i])

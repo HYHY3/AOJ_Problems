@@ -1,3 +1,23 @@
 http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_B
 
 http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C
+
+
+※Graph = (Edge(m:the number of edges), Vertex(n:the number of Vertices)) save as adjacency list or adjacency matrix
+calculateShortestPathByDijkstra(startId)
+    //Init
+    visited[All] = false	// not visited
+    dist[All] = INF 		// not reachable
+    
+    dist[startId] = 0
+    nodelist.push(0, startId)		// nodelist = priority_queue as Greater
+    while(nodelist is not empty)
+        curNode = nodelist.top		// curNode.first = the cost of startId to curId, curNode.second = curId
+        nodelist.pop
+        
+        if(visited[curId])
+            continue
+        visited[curId] = true;
+        for(i: 1 to size)			// size = the count of adjacency vertex from curId
+            dist[nextId] = min(dist[nextId], dist[curId] + e.cost)		//e.cost = curId to nextId
+            nodelist.push(dist[nextId], nextId)

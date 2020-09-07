@@ -1,1 +1,42 @@
 http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_A
+
+※Graph = ( Edge(m:the number of Edges), Vertex(n:the number of Vertices) ) save as adjacency list or adjacency matrix
+createMSTByKruskal()
+  minCost = 0
+  cntOfVertex = 0
+  
+  sort(Edge.cost) as less
+  for(e: 1 to m)
+      if e.u and e.v make a circle // use Union-Find to judge
+          continue
+      minCost += e.cost
+      ++cntOfVertex
+      if(cntOfVertex == n - 1)
+          return minCost //connected
+  return Not connected
+
+※Union-Find
+//Init
+for(i: 1 to n)
+    parent[i] = i
+    rank[i] = 0;
+
+//Find
+findRoot(int num)
+  if parent[num] = num
+      return num
+  return parent[num] = findRoot(parent[num])
+
+//Union
+union(int a, int b)
+    rootA = findRoot(a)
+    rootB = findRoot(b)
+    if rootA = rootB
+        return
+    
+    if rank[rootA] < rank[rootB]
+        parent[rootA] = rootB
+    else
+        parent[rootB] = rootA
+        if rank[rootA] = rank[rootB]
+            ++rank[rootA]
