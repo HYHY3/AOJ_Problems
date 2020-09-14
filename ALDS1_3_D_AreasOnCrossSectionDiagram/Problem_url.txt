@@ -1,0 +1,36 @@
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_3_D
+
+Å¶a cross-section diagram given as a string including '\', '/' and '_',
+reports areas of flooded sections. calculate the total area of created floods.
+
+LeftSlopesInfo contains index of '\' by using stack<index>
+AreasInfo contains every flooded sections Areas by using stack<pair<start index('\'), Areas> >
+
+calculation(rightIndex)
+    
+    leftIndex = LeftSlopesInfo.top();
+	LeftSlopesInfo.pop();
+	curAreas = rightIndex - leftIndex;
+
+	while (true)
+		if (AreasInfo.empty() OR AreasInfo.top().first < leftIndex)
+			AreasInfo.push({ leftIndex, curAreas })
+			return;
+
+		curAreas += AreasInfo.top().second;
+		AreasInfo.pop();
+
+main()
+    for(index:0 to len-1)
+        if string[index] = '_'
+            continue
+
+        if string[index] = '\'
+            LeftSlopesInfo.push(index)
+            continue
+
+        if LeftSlopesInfo is empty
+            continue
+
+        calculation(index)
+
