@@ -1,0 +1,38 @@
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_15_D
+
+※calculate the length of a binary string obtained by using Huffman coding for string S which consists of lowercase English letters.
+
+CountOfChar[26] = the total count of each lowercase letter included in string S.
+calculateLength()
+    for (i: 1 to 26)
+        // the string S does not have this lowercase letter
+        if CountOfChar[i - 1] = 0
+            continue
+        // put the count of this lowercase letter into the priority queue
+        nodelist.push(CountOfChar[i - 1])  // nodelist is a priority queue(default is less).
+    
+    // the string S only has one letter or has many the same letters.
+    if nodelist.size() = 1
+    	return -1 * nodelist.top()
+
+    ans = 0
+    while (nodelist.size() > 1)
+        a = nodelist.top()
+        nodelist.pop()
+        b = nodelist.top()
+        nodelist.pop()
+
+        ans += a + b
+        nodelist.push(a + b)
+
+    return -ans
+
+main()
+    //Init
+    CountOfChar[All] = 0
+    
+    // calculate the count of each letter included in S.
+    for (i: 1 to S.size)
+        --CountOfChar[S[i] - 'a']
+
+    print the return of calculateLength()
