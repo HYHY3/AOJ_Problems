@@ -1,0 +1,37 @@
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_5_C
+
+※draw a Koch curve based on recursive calles of depth N.
+1):Divide a given segment (p1, p2) into three equal segments.
+2):Replace the middle segment by the two sides of an equilateral triangle (s, u, t) of the same length as the segment.
+3):Repeat this procedure recursively for new segments (p1, s), (s, u), (u, t), (t, p2).
+
+kochCurve(N, p1, p2)
+
+	if N = 0
+		return // Only has Point p1 and Point p2
+	
+	// Because vector(p1->s) = 1 / 3 * vector(p1->p2), (s.x-p1.x, s.y-p1.y) = 1 / 3 * (p2.x-p1.x, p2.y-p1.y)
+	s.x = (p2.x + 2 * p1.x) / 3.0
+	s.y = (p2.y + 2 * p1.y) / 3.0
+	
+	// Because vector(p1->t) = 2 / 3 * vector(p1->p2), (t.x-p1.x, t.y-p1.y) = 2 / 3 * (p2.x-p1.x, p2.y-p1.y)
+	t.x = (p1.x + 2 * p2.x) / 3.0
+	t.y = (p1.y + 2 * p2.y) / 3.0
+
+    // Rotation Matrix: Point(x', y') is that Point(x, y) rotates counter clockwise θdegrees based on original point.
+    // x' = x * cosθ − y * sinθ
+    // y' = x * sinθ + y * cosθ
+    // Point u is that Point t rotates counter clockwise 60 degrees based on Point s.
+	u.x = (t.x - s.x) * 0.5 - (t.y - s.y) * sqrt(3) * 0.5 + s.x
+	u.y = (t.x - s.x) * sqrt(3) * 0.5 + (t.y - s.y) * 0.5 + s.y
+
+	kochCurve(n - 1, p1, s)
+	print(s.x, s.y)
+
+	kochCurve(n - 1, s, u)
+	print(u.x, u.y)
+
+	kochCurve(n - 1, u, t)
+	print(t.x, t.y)
+	
+	kochCurve(n - 1, t, p2)
