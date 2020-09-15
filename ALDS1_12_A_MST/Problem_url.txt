@@ -19,7 +19,7 @@ createMSTByKruskal()
 //Init
 for(i: 1 to n)
     parent[i] = i
-    rank[i] = 0;
+    rank[i] = 0
 
 //Find
 findRoot(int num)
