@@ -1,10 +1,10 @@
 http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_1_D
 
-¦nŒÂ(A1, A2, A3, ... , An-1, An)‚Ì’lAjAAi(j > i‚Æ‚·‚é)‚É‘Î‚µ‚Ä‚ÍAAj - Ai‚ÌÅ‘å’l‚ðO(n)‚Å‹‚ß‚éB
+â€»an Array with the size of N is given in order At(t=1,2,3,...Nâˆ’1,N), calculate the maximum value of Ajâˆ’Ai where j>i
 getMaxDiff()
     minValue = A[1]
-    maxValue = A[]min - A[]max
+    maxValue = A[All]min - A[All]max
     
-    for(i: 2 to n)
+    for(i: 2 to N)
         maxValue = max(maxValue, A[i] - minValue)
         minValue = min(minValue, A[i])
