@@ -4,7 +4,6 @@ http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_10_B
 find the minimum number of scalar multiplications to compute the maxrix-chain multiplication M1M2...Mn.
 Matrix Mi(i=1...n) is given by two integers r and c which respectively represents the number of rows and columns of Mi.
 
-
 DpCount[i][j] = the result of maxrix-chain multiplication from Mi to Mj.
 MatrixInfo contains the number of rows and the number of columns as a pair of each matrix.
 void findMinScalarMultiplications()
