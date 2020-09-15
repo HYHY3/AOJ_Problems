@@ -1,0 +1,17 @@
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_10_C
+
+※for given two sequences(strings) X and Y, find the length of Longest Common Subsequence of them.
+
+DpLength[i][j] = the length of LCS between X.substring[1 to i] and Y.substring[1 to j].
+findLCS(X, Y)
+    //Init
+    DpLength[All][All] = 0
+
+    for (i: 1 to X.size)
+        for (j: 1 to Y.size)
+        if X[i] = Y[j]
+            DpLength[i][j] = DpLength[i - 1][j - 1] + 1
+        else
+            DpLength[i][j] = max(DpLength[i - 1][j], DpLength[i][j - 1])
+
+    print DpLength[X.size][Y.size]
