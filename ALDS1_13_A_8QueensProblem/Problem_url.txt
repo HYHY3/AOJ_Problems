@@ -8,32 +8,32 @@ placeQueen(curRow)
         show
         return
     
-    if QueenInfo[curRow] != -1	// this row has been placed a Queen
+    if QueenInfo[curRow] != -1	// somewhere in this row has been placed a Queen
         placeQueen(curRow + 1)
         return
     
     for(j: 0 to 7)			// index Of Col
-        leftPos = curRow - j + 7;	// Queen State Of LeftDiagonal
-		rightPos = curRow + j;	// Queen State Of RightDiagonal
-		if Col[j] = true OR LeftDiagonal[leftPos] = true OR RightDiagonal[rightPos] = true
-			continue;
+        leftPos = curRow - j + 7	// Queen State Of LeftDiagonal
+	rightPos = curRow + j	// Queen State Of RightDiagonal
+	if Col[j] = true OR LeftDiagonal[leftPos] = true OR RightDiagonal[rightPos] = true
+	    continue
 		
-		// set Queen state
-		QueenInfo[curRow] = j;
-		Col[j] = true;
-		LeftDiagonal[leftPos] = true;
-		RightDiagonal[rightPos] = true;
+	// set Queen state
+	QueenInfo[curRow] = j
+	Col[j] = true
+	LeftDiagonal[leftPos] = true
+	RightDiagonal[rightPos] = true
 		
-		// go to next row
-		solve(curRow + 1);
+	// go to next row
+	solve(curRow + 1)
 		
-		// clear Queen state
-		QueenInfo[curRow] = -1;
-		Col[j] = false;
-		LeftDiagonal[leftPos] = false;
-		RightDiagonal[rightPos] = false;
+	// clear Queen state
+	QueenInfo[curRow] = -1
+	Col[j] = false
+	LeftDiagonal[leftPos] = false
+	RightDiagonal[rightPos] = false
     
-main
+main()
     //Init
     QueenInfo[All] = -1		// No Queen has been placed
     Col[All] = false		// the Queen state of Column
@@ -41,5 +41,3 @@ main
     RightDiagonal[All] = false	// the Queen state of RightDiagonal
     
     placeQueen(0)		// index Of Row = 0 to 7
-    
-    
