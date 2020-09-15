@@ -1,0 +1,27 @@
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_10_B
+
+※for a given n matrices M1,M2,M3,...,Mn-1,Mn.
+find the minimum number of scalar multiplications to compute the maxrix-chain multiplication M1M2...Mn.
+Matrix Mi(i=1...n) is given by two integers r and c which respectively represents the number of rows and columns of Mi.
+
+
+DpCount[i][j] = the result of maxrix-chain multiplication from Mi to Mj.
+MatrixInfo contains the number of rows and the number of columns as a pair of each matrix.
+void findMinScalarMultiplications()
+    // Init
+    DpCount[All][All] = 0
+
+    // calculate each situation based on length from 2(Mi * M(i+1)) to N(Mi * M(i+1) * ... * M(i+N-1)).
+    for (length: 2 to N)
+        for (i: 1 to N-1)
+            curEndPos = i + length - 1
+            if curEndPos > N
+                break
+
+            DpCount[i][curEndPos] = INF
+            for (k: i to curEndPos-1)
+                curCount = DpCount[i][k] + DpCount[k + 1][curEndPos]
+                curCount += MatrixInfo[i].row * MatrixInfo[k + 1].row * MatrixInfo[curEndPos].col
+                DpCount[i][curEndPos] = min(DpCount[i][curEndPos], curCount)
+
+    print DpCount[1][N]
