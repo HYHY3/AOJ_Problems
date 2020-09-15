@@ -5,19 +5,18 @@ reports areas of flooded sections. calculate the total area of created floods.
 
 LeftSlopesInfo contains index of '\' by using stack<Index>
 AreasInfo contains every areas of flooded sections by using stack<pair<startIndex('\'), Areas> >
-
 calculation(rightIndex) 
-    leftIndex = LeftSlopesInfo.top();
-    LeftSlopesInfo.pop();
-    curAreas = rightIndex - leftIndex;
+    leftIndex = LeftSlopesInfo.top()
+    LeftSlopesInfo.pop()
+    curAreas = rightIndex - leftIndex
 
     while (true)
         if (AreasInfo.empty() OR AreasInfo.top().first < leftIndex)
 	    AreasInfo.push({ leftIndex, curAreas })
-	    return;
+	    return
 	    
-	curAreas += AreasInfo.top().second;
-	AreasInfo.pop();
+	curAreas += AreasInfo.top().second
+	AreasInfo.pop()
 
 main()
     for(index:0 to len-1)
@@ -32,4 +31,3 @@ main()
             continue
 
         calculation(index)
-
