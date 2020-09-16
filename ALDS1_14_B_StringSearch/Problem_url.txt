@@ -1,0 +1,40 @@
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_14_B
+
+※find all places where a string P is found within a text(string) T, The indices of T start with 0.
+
+getNextInfoOfStringP(p)
+    NextInfo[p.size + 1] = 0
+    NextInfo[0] = -1
+
+    i = 0
+    j = -1
+    while i < p.size
+        if j == -1 OR p[i] == p[j]
+            ++i
+            ++j
+            NextInfo[i] = j
+            if p[i] == p[NextInfo[i]]
+                NextInfo[i] = NextInfo[NextInfo[i]]
+        else
+            j = NextInfo[j]
+
+KMP(t, p)
+    i = 0;
+    j = 0;
+    while i < t.size
+        if j == -1 OR t[i] == p[j]
+            ++i
+            ++j
+            if j == p.size
+                print (i - j)
+                //j = 0
+                j = NextInfo[j]
+        else
+            j = NextInfo[j]
+    // Not found
+
+main()
+    input t and p
+
+    getNext(p)
+    solve(t, p)
