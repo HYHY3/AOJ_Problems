@@ -1,0 +1,67 @@
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_14_C
+
+※find all places where a R × C pattern is found within a H × W region. 
+Print top-left coordinates (i, j) of sub-regions where the pattern found. 
+The top-left and bottom-right coordinates of the region is (0, 0) and (H-1, W-1) respectively.
+
+BaseRow = 9999991
+BaseCol = 9999973
+M = 1000000007
+MaxLength = 1001
+
+TargetHashCode[i][j] = hashCode of length 1 to j(less than C) with each row i in H * W.
+TargetHashCodeTemp[i][j] = the clone of TargetHashCode.
+Target = the string data of H * W.
+Pattern = the string data of R * C.
+
+calculateHashCode()
+
+    // calculate the hashCode of R * C pattern matrix.
+    finalPatternHashCode = 0
+    for i: 0 to R - 1
+        key = 0
+        // calculate hashCode of each row
+        for j: 0 to C - 1
+            //key = key * BaseCol + Pattern[i][j]
+            key = (key * BaseCol % M + Pattern[i][j]) % M
+        //finalPatternHashCode = finalPatternHashCode * BaseRow + key
+        finalPatternHashCode = (finalPatternHashCode * BaseRow % M + key) % M
+
+    acc = 1;
+    for i: 0 to C - 1
+        //acc = acc * BaseCol
+        acc = acc * BaseCol % M
+    for i: 0 to H - 1
+        key = 0
+        for (j: 0 to W - 1
+            //key = key * BaseCol + Target[i][j]
+            key = (key * BaseCol % M + Target[i][j]) % M
+            // calculate hashCode of length C from 0 to W - 1 in H * W.
+            if j >= C
+                //key = key - Target[i][j - C] * acc
+                key = (key - Target[i][j - C] * acc % M + M) % M
+            TargetHashCode[i][j] = key
+            TargetHashCodeTemp[i][j] = key
+
+    acc = 1;
+    for (int i = 0; i < R; ++i) {
+        //acc = acc * BaseRow
+        acc = acc * BaseRow % M
+    for i: 0 to H - 1
+        for j: 0 to W - 1
+            if i != 0
+                //TargetHashCode[i][j] = TargetHashCode[i][j] + TargetHashCode[i - 1][j] * BaseRow
+                TargetHashCode[i][j] = (TargetHashCode[i][j] + TargetHashCode[i - 1][j] * BaseRow % M) % M
+            // calculate hashCode of length R from 0 to H - 1 in H * W.
+            if i >= R
+                //TargetHashCode[i][j] = TargetHashCode[i][j] - TargetHashCodeTemp[i - R][j] * acc
+                TargetHashCode[i][j] = (TargetHashCode[i][j] - TargetHashCodeTemp[i - R][j] * acc % M + M) % M
+
+main()
+    input Target(H * W) and Pattern(R * C)
+    
+    calculateHashCode()
+    for i: 0 to H - 1
+        for j: 0 to W - 1
+            if TargetHashCode[i][j] = finalPatternHashCode
+                print i - R + 1 and j - C + 1
