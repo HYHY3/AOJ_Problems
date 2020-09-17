@@ -1,0 +1,73 @@
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_13_B
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_13_C
+
+※calculate the shortest move(fewest steps) to solve the puzzle problem, in which
+move a piece toward the empty space at one step from initial state to goal state of the puzzle.
+
+N = 3    // 8 Puzzle Problem.
+//N = 4  // 15 Puzzle Problem.
+MaxLength = N*N.
+Dx[] = { 0,1,0,-1 } // movement direction(right, down, left, up).
+Dy[] = { 1,0,-1,0 } // movement direction(right, down, left, up).
+PuzzleInfo[MaxLength] = the state of puzzle as a string not a matrix.
+
+// calculate the steps of each piece from current position to goal position.
+getHeuristic()
+    hcost = 0
+    for i: 0 to MaxLength - 1
+        curPos = PuzzleInfo[i] - 1
+        // current piece is on the goal position.
+        if curPos == MaxLength - 1 OR curPos == i // in this situation, goal state = 1,2,3,4,...,8(,9,...,15),empty piece.
+            continue
+        // calculate the steps of this piece from current position to goal position.
+        hcost += abs(i / N - curPos / N) + abs(i % N - curPos % N)
+    return hcost
+
+// curDepth = the count of recursion.
+// preDir   = the direction from previous state.
+// spaceX   = the row of current empty piece.
+// spaceY   = the column of current empty piece.
+check(curDepth, preDir, spaceX, spaceY)
+    curCost = getHeuristic()
+    // goal state
+    if curCost == 0
+        return true
+    if curCost + curDepth > Steps
+        return false
+
+    // movement direction.
+    for i: 0 to 3
+        // to avoid repetition movement.
+        if |i - preDir| = 2
+            continue
+        nextX = spaceX + Dx[i]
+        nextY = spaceY + Dy[i]
+        // border check.
+        if nextX < 0 OR nextX >= N OR nextY < 0 OR nextY >= N
+            continue
+        // the position of current empty piece.
+        curSpaceIndex = spaceX*N + spaceY
+        // the position of current empty piece supposed to move.
+        nextSpaceIndex = nextX*N + nextY
+        // swap the empty piece from current position to next position.
+        swap(PuzzleInfo[curSpaceIndex], PuzzleInfo[nextSpaceIndex])
+        // go to next step.
+        if check(curDepth + 1, i, nextX, nextY)
+            return true
+        // restore the empty piece swapped before.
+        swap(PuzzleInfo[curSpaceIndex], PuzzleInfo[nextSpaceIndex])
+    return false
+
+// spaceIndex = position of empty piece
+solve()
+    Steps = 0
+    while true
+        if check(0, 10, spaceIndex / N, spaceIndex % N) = true
+            break
+        ++Steps
+    print Steps
+
+main()
+    input the initial puzzle state as a string not a matrix.
+
+    solve(position of empty piece)
