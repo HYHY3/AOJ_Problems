@@ -59,7 +59,7 @@ check(curDepth, preDir, spaceX, spaceY)
     return false
 
 // spaceIndex = position of empty piece
-solve()
+solve(spaceIndex)
     Steps = 0
     while true
         if check(0, 10, spaceIndex / N, spaceIndex % N) = true
