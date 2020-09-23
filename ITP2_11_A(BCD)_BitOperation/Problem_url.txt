@@ -1,0 +1,20 @@
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP2_11_A
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP2_11_B
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP2_11_C
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP2_11_D
+
+※Those problems are about Bit Operation.
+in C++, using bitset<length of bits> is convenient to manipulate binary data.
+
+the methods of bitset are:
+01) test(i)    : return true if i-th flag is ON(1), otherwise false.
+02) set(i, 1/0): Set i-th flag to ON/OFF.
+03) flip(i)    : Inverse i-th flag.
+04) reset      : Set all flags to OFF(0).
+05) all        : return true if all flags are ON(1), otherwise false.
+06) any        : return true if at least one flag is ON(1), otherwise false.
+07) none       : return true if all flags are OFF(0), otherwise false.
+08) count      : return the number of ON(1) flags.
+09) to_ulong   : return the decimal value of the state as unsigned long type.
+10) to_ullong  : return the decimal value of the state as unsigned long long type.
+11) to_string  : return the decimal value of the state as string type.
