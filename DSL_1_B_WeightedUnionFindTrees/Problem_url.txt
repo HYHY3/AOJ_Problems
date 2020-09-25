@@ -1,0 +1,35 @@
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_1_B
+
+※for given a sequence A=[a0,a1,...,an−1]. there are two methods.
+relate(x, y, z):ay is greater than ax by z.
+diff(x, y):print the difference between ax and ay(ay - ax).
+
+findRoot(num)
+    if Parent[num] = num
+        return num
+    
+    curParent = findRoot([Parent[num])
+    Weight[num] += Weight[Parent[num]]
+    return Parent[num] = curParent
+    
+unite(x, y, z)
+    rootX = findRoot(x)
+    rootY = findRoot(y)
+    if rootX = rootY
+        return
+    Parent[rootX] = rootY
+    Weight[rootX] = Weight[y] + z - Weight[x]
+    
+main
+    // Init
+    Parent[i] = i
+    Weight[All] = 0
+    
+    input x,y and z
+    
+    unite(x, y, z)
+    
+    if findRoot(x) = findRoot(y)
+        print Weight[x] - Weight[y]
+    else
+        print not connected
