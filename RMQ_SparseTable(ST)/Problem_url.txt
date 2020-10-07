@@ -1,0 +1,36 @@
+Sparse Table(ST) algorithm
+
+For a given sequence A = {a0, a1, ..., an−1}.
+min(max)Data[i][j] = the min(max) value between A[i] and A[i+2^j-1].
+※the size of range is 2^j started from A[i]
+To find the value of min(max)Data[i][j]. 
+it is splited with two parts, which size is 2^(j-1). // 2^j / 2 = 2^(j-1)
+one part is started from A[i] to A[i + 2^(j-1) -1 ], 
+while another is started from A[i + 2^(j-1)] to A[i + 2^j -1 ].
+
+So min(max)Data[i][j] = min(max)(min(max)Data[i][j-1], min(max)Data[i + 2^(j-1)][j-1]).
+※min(max)Data[i][j-1] = min(max){A[i] to A[i + 2^(j-1) -1 ]}
+※min(max)Data[i + 2^(j-1)][j-1] = min(max){A[i + 2^(j-1)] to A[i + 2^j -1 ]}
+
+1)Prepare for data process. Time complexity = O(n*log(n))
+    for i: 0 to n-1
+        minData[i][0] = A[i]
+        maxData[i][0] = A[i]
+        
+    limitJ = log2(n) // 2^j = n(max size of the sequence)
+    for j: 1 to limitJ
+        for i: 0 to n-(1<<j) // i + (1<<j) - 1 < n
+            minData[i][j] = min(minData[i][j-1], minData[i + (1<<(j-1))][j-1])
+            maxData[i][j] = max(maxData[i][j-1], maxData[i + (1<<(j-1))][j-1])
+
+2)Query(find min or max value between a and b). Time complexity = O(1)
+  When the range of Query is from a to b, so length of the range is b - a + 1.
+      k = log2(b - a + 1) // 2^k = b - a + 1
+      [a,b]max = max(maxData[a][k], maxData[b - (1<<k) + 1][k])
+      [a,b]min = min(minData[a][k], minData[b - (1<<k) + 1][k])
+  ※min(max)Data[a][k] = the min(max) value between the range 2^k started from A[a]. // to A[index1]
+  ※min(max)Data[b - (1<<k) + 1][k] = the min(max) value between the range 2^k ended with A[b]. // from A[index2]
+  ※When a = b, so 2^k = 1.
+    index1(a + 2^k - 1) = a, index2(b - 2^k + 1) = b, So index1 = index2(overlap)
+  ※When a < b, so 2^k > 1.
+    index1(a + 2^k - 1) - index2(b - 2^k + 1) = a - b + 2^(k+1) - 2 > 0, So index1 > index2(overlap)
