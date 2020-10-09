@@ -1,0 +1,58 @@
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_B
+
+For a given sequence A = {a1, a1, ..., an}, there are two types command.
+1)add(i,x): add x to ai.
+2)getSum(s,t): return the sum of as, as+1, ..., at-1, at.
+
+Segment Tree algorithm
+if the height of root node is 0, and to make a Complete Binary Tree.
+so the size of all leaves node which is A sequence is between 2^(h-1) and 2^h.
+
+the size(allSize) of Complete Binary Tree
+= 2^0 + 2^1 + 2^2 + ... 2^(h-1) + 2^h
+= 2^(h+1) - 1
+= 2 * 2^h - 1 
+= 2 * limit - 1 // limit = 2^h
+
+Because of 2^(h-1) < n <= 2^h,
+2 * 2^h - 1 < 4*n - 1.
+allSize < 4*n - 1, so max size of Complete Binary Tree is 4*n.
+to store a Complete Binary Tree which has n number leaves node, make sure at least 4*n space.
+
+the index of ai in treeInfo is i + offset, and offset
+= 2^0 + 2^1 + 2^2 + ... 2^(h-1)
+= 2^h - 1
+= limit - 1
+
+
+Init()
+    limit = 1
+    while(limit < n) // n = the size of A sequence
+        limit *= 2
+    allSize = 2 * limit - 1
+    treeInfo[1 to allSize] = 0
+    
+add(i, x)
+    i += limit - 1 // ai of A sequence is in treeInfo[i+limit-1].
+    treeInfo[i] += x
+    while i > 0
+        i = (i - 1) / 2
+        treeInfo[i] = treeInfo[2*i+1] + treeInfo[2*i+2]
+        
+getSum(root, left, right, s, t)
+    if t <= left OR s >= right
+        return 0
+        
+    if s <= left && right <= t
+        return treeInfo[root]
+        
+    mid = (left + right) / 2
+    leftSum = getSum(2*root+1, left, mid, s, t)
+    rightSum = getSum(2*root+2, mid, right, s, t)
+    
+    return leftSum + rightSum
+
+main()
+    input Query command.
+    //add(index-1, value)
+    //getSum(0, 0, limit, s-1, t)
