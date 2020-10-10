@@ -1,0 +1,32 @@
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_B
+
+For a given sequence A = {a1, a1, ..., an}, there are two types command.
+1)add(i,x): add x to ai.
+2)getSum(s,t): return the sum of as, as+1, ..., at-1, at.
+
+Binary Indexed Tree algorithm
+According to the data structure of segment tree, ParentNode = LeftChildNode + RightChildNode,
+So make a new data structure RightChildNode = ParentNode - LeftChildNode called Binary Indexed Tree(BIT).
+Because all of RightChildNodes are deleted, the store space is only n which is the same size as A sequence.
+※the index of BIT array is started from 1.
+
+Init()
+    treeInfo[1 to n] = 0
+    
+add(i, x)
+    while i <= n
+        treeInfo[i] += x
+        i += i&(-i) // lowBit(i) = i&(-i)
+        
+getSum(i)
+    
+    sum = 0
+    while i > 0
+        sum += treeInfo[i]
+        i -= i&(-i) // lowBit(i) = i&(-i)
+    return sum
+
+main()
+    input Query command.
+    //add(index, value)
+    //getSum(t) - getSum(s-1)
