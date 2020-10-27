@@ -1,0 +1,23 @@
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_B
+
+※Graph = (Edge including negative edge(m:the number of edges), Vertex(n:the number of Vertices)) is saved as adjacency list or adjacency matrix.
+calculate SingleSource(startId) Shortest Path By Bellman-Ford algorithm
+    
+dist[i] = the distance from startId to Vertex i.	// if dist[i] is INF, it is not reachable from startId.
+edge[i] = the information(two vertices and weight) of this edge.    
+algorithmOfBellmanFord(startId)
+    //Init
+    dist[All] = INF 		// not reachable
+    
+    dist[startId] = 0
+    for(cnt: 1 to n - 1)	// there are at most n-1 reachable edges from Vi to Vj.
+        for(i: 1 to m)		// for each edge
+            if dist[edge[i].source] = INF	// Vertex edge[i].source is not reachable from startId
+                continue
+            dist[edge[i].target] = min(dist[edge[i].target], dist[edge[i].source] + edge[i].weight)
+    
+    for(i: 1 to m)		// for each edge
+        if dist[edge[i].source] = INF	// Vertex edge[i].source is not reachable from startId
+            continue
+        if(dist[edge[i].target] > dist[edge[i].source] + edge[i].weight)
+            print(NEGATIVE CYCLE)	// the graph contains a negative cycle
