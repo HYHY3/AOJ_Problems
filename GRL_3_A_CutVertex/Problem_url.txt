@@ -29,7 +29,7 @@ getDFSTree(curId, depth)
             if Parent[curId] = n                        // vertex curId is root.
                 if children > 1                         // root has at least 2 children.
                     print(curId)                        // vertex curId is cut vertex.
-            else if Low[nextId] >= Depth[curId]         // vertex curId is not root, but its children can pass by it to reach its further parent vertex.
+            else if Low[nextId] >= Depth[curId]         // vertex curId is not root, but its children can not pass by it to reach its further parent vertex.
                 print(curId)                            // vertex curId is cut vertex.
         else if Parent[curId] != nextId                 // there is an another path to reach its further parent vertex.
             Low[curId] = min(Low[curId], Depth[nextId]) // update the minium depth which vertex curId can be reachable.
