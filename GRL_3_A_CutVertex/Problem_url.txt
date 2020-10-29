@@ -1,0 +1,48 @@
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_A
+
+Find articulation points(cut vertices) of a given undirected Graph G(V(n:the number of Vertices), E(m:the number of edges)).
+※Graph is saved as adjacency list or adjacency matrix.
+
+Tarjan algorithm:
+use dfs(depth first search) to get a dfs tree started from a random vertex of graph.
+
+Visited[i] = vertex i has been visited(true) or not(false).
+Depth[i] = the depth of vertex i, which the depth of root is 0.
+Low[i] = vertex i which passes by its parent vertex can be reachable the minium depth of dfs tree.
+Parent[i] = the parent of vertex i.
+
+getDFSTree(curId, depth)
+
+    Visited[curId] = true
+    Depth[curId] = Low[curId] = depth
+    children = 0
+
+    size = GraphInfo[curId].size()                      // graph is saved as adjacency list.
+    for (i: 0 to size - 1 )
+        nextId = GraphInfo[curId][i]                    // adjacency vertex of vertex curId.
+
+        if Visited[nextId] is false                     // has not been visited.
+            Parent[nextId] = curId                      // the parent of vertex nextId is vertex curId.
+            ++children
+            solve(nextId, depth + 1)                    // go to next vertex.
+            Low[curId] = min(Low[curId], Low[nextId])   // when return back to this vertex, judge its reachable depth of passing by its parent.
+            if Parent[curId] = n                        // vertex curId is root.
+                if children > 1                         // root has at least 2 children.
+                    print(curId)                        // vertex curId is cut vertex.
+            else if Low[nextId] >= Depth[curId]         // vertex curId is not root, but its children can pass by it to reach its further parent vertex.
+                print(curId)                            // vertex curId is cut vertex.
+        else if Parent[curId] != nextId                 // there is an another path to reach its further parent vertex.
+            Low[curId] = min(Low[curId], Depth[nextId]) // update the minium depth which vertex curId can be reachable.
+
+main()
+    // input※the id of vertices is 0,1,2,...,n-1.
+    Graph Information is saved as adjacency list.
+    
+    //Init
+    Visited[All] = false
+    Depth[All] = 0
+    Low[All] = 0
+    Parent[All] = 0
+    
+    Parent[0] = n    // set vertex 0 as root.
+    getDFSTree(0, 0)
