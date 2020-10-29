@@ -1,0 +1,35 @@
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_A
+
+※Graph = ( Edge(m:the number of Edges), Vertex(n:the number of Vertices) ) save as adjacency list or adjacency matrix
+
+Visited[i] = the i vertex of Graph has been visited(true) or not(false).
+Distance[i] = the current distance from the visited vertex set to i which has not been visited.
+※the visited vertex set contains the vertex whose Visited[the vertex] is true.
+
+createMSTByPrim(startId)  // startId is a random vertex of Graph
+    // Init
+    Visited[All] = false
+    Distance[All] = INF
+    
+    for(i: 0 to n-1)  // the id of vertex is 0,1,2,…,n-1.
+        Distance[i] = Graph[startId][i]  // Graph is saved as adjacency matrix and Graph[i][i] = INF.
+    
+    Visited[startId] = true
+    ans = 0
+    for(cnt: 1 to n-1)  // there are n-1 edges of MST.
+        minDist = INF;
+        for(i: 0 to n-1)  // find the current shortest path, whose one of vertex belongs to the visited vertex set.
+            if Visited[i] is true
+                continue
+            if Distance[i] < minDist
+                minDist = Distance[i]
+                curId = i
+        
+        Visited[curId] = true
+        ans += minDist
+        for(i: 0 to n-1)  // update the Distance.
+            if Visited[i] is true
+                continue
+            Distance[i] = min(Distance[i], Graph[curId][i])
+    
+    print(ans)
