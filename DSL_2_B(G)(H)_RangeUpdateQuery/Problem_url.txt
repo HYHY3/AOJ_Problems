@@ -1,0 +1,129 @@
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_B
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_G
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_H
+
+For a given sequence A = a0, a1, ..., an, there are two types command.
+1)DSL_2_B   : add(i,x)  : add x to ai.
+  DSL_2_G(H): add(s,t,x): add x to as, as+1, ..., at.
+2)DSL_2_B(G): getSum(s,t): return the sum of as, as+1, ..., at.
+  DSL_2_H   : find(s,t)  : find the minimum value in as, as+1, ..., at.
+
+Segment Tree algorithm
+if the height of root node is 0, and to make a Complete Binary Tree.
+so the size of all leaves node which is A sequence is between 2^(h-1) and 2^h.
+
+the size(allSize) of Complete Binary Tree
+= 2^0 + 2^1 + 2^2 + ... 2^(h-1) + 2^h
+= 2^(h+1) - 1
+= 2 * 2^h - 1 
+= 2 * limit - 1 // limit = 2^h
+
+Because of 2^(h-1) < n <= 2^h,
+2 * 2^h - 1 < 4*n - 1.
+allSize < 4*n - 1, so max size of Complete Binary Tree is 4*n.
+to store a Complete Binary Tree which has n number leaves node, make sure at least 4*n space.
+
+※the index of ai in treeInfo is i + offset, and offset
+= 2^0 + 2^1 + 2^2 + ... 2^(h-1)
+= 2^h - 1
+= limit - 1
+
+
+pushUp(int root) 
+    if RangeQueryType = QueryTypes[0]             // get Sum
+        TreeInfo[root].sum = TreeInfo[2 * root + 1].sum + TreeInfo[2 * root + 2].sum
+    else if RangeQueryType = QueryTypes[1]        // get Min
+        TreeInfo[root].mValue = min(TreeInfo[2 * root + 1].mValue, TreeInfo[2 * root + 2].mValue)
+
+pushDown(int root, int left, int right, int mid) 
+
+    diff = TreeInfo[root].lazy  // the temporary result which should be updated to its range.
+    if diff = 0    // No need to update.
+        return
+
+    TreeInfo[2 * root + 1].lazy += diff
+    TreeInfo[2 * root + 2].lazy += diff
+    if RangeQueryType = QueryTypes[0]                    // get Sum
+        TreeInfo[2 * root + 1].sum += diff*(mid - left)
+        TreeInfo[2 * root + 2].sum += diff*(right - mid)
+    else if RangeQueryType = QueryTypes[1]               // get Min
+        TreeInfo[2 * root + 1].mValue += diff
+        TreeInfo[2 * root + 2].mValue += diff
+    TreeInfo[root].lazy = 0
+
+update(int root, int left, int right, int s, int t, long long diff)
+    if t <= left OR s >= right
+        return
+
+    if s <= left AND right <= t
+        TreeInfo[root].lazy += diff
+        if RangeQueryType = QueryTypes[0]             // get Sum
+            TreeInfo[root].sum += diff*(right - left)
+        else if RangeQueryType = QueryTypes[1]        // get Min
+            TreeInfo[root].mValue += diff
+        return
+
+    mid = (left + right) / 2
+    pushDown(root, left, right, mid)
+    update(2 * root + 1, left, mid, s, t, diff)
+    update(2 * root + 2, mid, right, s, t, diff)
+    pushUp(root)
+        
+getSum(root, left, right, s, t)
+    if t <= left OR s >= right
+        return 0
+        
+    if s <= left AND right <= t
+        return treeInfo[root].sum
+        
+    mid = (left + right) / 2
+    pushDown(root, left, right, mid)
+    leftSum = getSum(2*root+1, left, mid, s, t)
+    rightSum = getSum(2*root+2, mid, right, s, t)
+    return leftSum + rightSum
+
+getMinValue(int root, int left, int right, int s, int t)
+    if t <= left OR s >= right
+        return INT_MAX
+
+    if s <= left AND right <= t
+        return treeInfo[root].mValue
+
+    mid = (left + right) / 2
+    pushDown(root, left, right, mid)
+    leftVal = getMinValue(2 * root + 1, left, mid, s, t)
+    rightVal = getMinValue(2 * root + 2, mid, right, s, t)
+    return min(leftVal, rightVal)
+
+main()
+    // Init
+    TreeInfo[All].lazy = 0
+    TreeInfo[All].sum = 0
+    TreeInfo[All].mValue = 0
+    
+    // input the number of data(N) and queries(Q).
+    
+    // get the size(boundary) of Segment Tree
+    EndPos = 1
+    while EndPos < N
+        EndPos *= 2
+    
+    // for each query.
+    for (i: 1 to Q)
+        // input command type(cmd), range start(s) and range end(t).
+        
+        if DataIndexStartedFrom = 1       // when Sequence A=a1,a2,a3,...,an, change data format looks like a0,a1,a2,...,an-1.
+            --s
+            --t
+        if cmd = 0                                           // when command type is update.
+            if RangeType = RangeTypes[0]                     // Point Update.(add t to A[s])
+                ++t                                          // t is the value.
+                update(0, 0, EndPos, s, s + 1, t)
+            else if RangeType = RangeTypes[1]                // Range Update.(add x to A[s]...A[t])
+                //input x
+                update(0, 0, EndPos, s, t + 1, x)
+        else if cmd = 1                                      // when command type is answer question.
+            if RangeQueryType = QueryTypes[0]                // return Sum
+                print( getSum(0, 0, EndPos, s, t + 1) )
+            else if RangeQueryType = QueryTypes[1]           // return Min
+                print( getMinValue(0, 0, EndPos, s, t + 1) )
