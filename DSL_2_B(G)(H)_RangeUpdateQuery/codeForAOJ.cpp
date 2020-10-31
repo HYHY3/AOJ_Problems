@@ -45,11 +45,11 @@ void pushDown(int root, int left, int right, int mid) {
 
     TreeInfo[2 * root + 1].lazy += diff;
     TreeInfo[2 * root + 2].lazy += diff;
-    if (RangeQueryType == QueryTypes[0]) {                // get Sum
+    if (RangeQueryType == QueryTypes[0]) {      // get Sum
         TreeInfo[2 * root + 1].sum += diff*(mid - left);
         TreeInfo[2 * root + 2].sum += diff*(right - mid);
     }
-    else if (RangeQueryType == QueryTypes[1]) {           // get Min
+    else if (RangeQueryType == QueryTypes[1]) { // get Min
         TreeInfo[2 * root + 1].minValue += diff;
         TreeInfo[2 * root + 2].minValue += diff;
     }
@@ -64,10 +64,10 @@ void update(int root, int left, int right, int s, int t, long long diff) {
 
     if (s <= left && right <= t) {
         TreeInfo[root].lazy += diff;
-        if (RangeQueryType == QueryTypes[0]) {           // get Sum
+        if (RangeQueryType == QueryTypes[0]) {      // get Sum
             TreeInfo[root].sum += diff*(right - left);
         }
-        else if (RangeQueryType == QueryTypes[1]) {      // get Min
+        else if (RangeQueryType == QueryTypes[1]) { // get Min
             TreeInfo[root].minValue += diff;
         }
         return;
@@ -133,25 +133,27 @@ int main() {
     }
     for (int i = 0; i < Q; ++i) {
         cin >> cmd >> s >> t;
-        if (DataIndexStartedFrom == 1) {             // make data format looks like a0,a1,a2,...,an-1.
+        if (DataIndexStartedFrom == 1) {            // make data format looks like a0,a1,a2,...,an-1.
             --s;
             --t;
         }
         if (cmd == 0) {
-            if (RangeType == RangeTypes[0]) {        // add t to A[s].
-                ++t;
+            if (RangeType == RangeTypes[0]) {       // add t to A[s].
+                if (DataIndexStartedFrom == 1) {
+                    ++t;
+                }
                 update(0, 0, EndPos, s, s + 1, t);
             }
-            else if (RangeType == RangeTypes[1]) {   // add x to A[s]...A[t].
+            else if (RangeType == RangeTypes[1]) {  // add x to A[s]...A[t].
                 cin >> x;
                 update(0, 0, EndPos, s, t + 1, x);
             }
         }
         else if (cmd == 1) {
-            if (RangeQueryType == QueryTypes[0]) {                  // get Sum
+            if (RangeQueryType == QueryTypes[0]) {      // get Sum
                 cout << getSum(0, 0, EndPos, s, t + 1) << endl;
             }
-            else if (RangeQueryType == QueryTypes[1]) {             // get Min
+            else if (RangeQueryType == QueryTypes[1]) { // get Min
                 cout << getMinValue(0, 0, EndPos, s, t + 1) << endl;
             }
         }

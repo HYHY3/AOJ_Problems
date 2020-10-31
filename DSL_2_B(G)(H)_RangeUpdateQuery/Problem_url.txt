@@ -117,8 +117,9 @@ main()
             --t
         if cmd = 0                                           // when command type is update.
             if RangeType = RangeTypes[0]                     // Point Update.(add t to A[s])
-                ++t                                          // t is the value.
-                update(0, 0, EndPos, s, s + 1, t)
+               if DataIndexStartedFrom = 1
+                   ++t;                                      // t is the value.
+               update(0, 0, EndPos, s, s + 1, t)
             else if RangeType = RangeTypes[1]                // Range Update.(add x to A[s]...A[t])
                 //input x
                 update(0, 0, EndPos, s, t + 1, x)
