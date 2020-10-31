@@ -33,7 +33,7 @@ pushUp(int root)
     if RangeQueryType = QueryTypes[0]             // get Sum
         TreeInfo[root].sum = TreeInfo[2 * root + 1].sum + TreeInfo[2 * root + 2].sum
     else if RangeQueryType = QueryTypes[1]        // get Min
-        TreeInfo[root].mValue = min(TreeInfo[2 * root + 1].mValue, TreeInfo[2 * root + 2].mValue)
+        TreeInfo[root].minValue = min(TreeInfo[2 * root + 1].minValue, TreeInfo[2 * root + 2].minValue)
 
 pushDown(int root, int left, int right, int mid) 
 
@@ -47,8 +47,8 @@ pushDown(int root, int left, int right, int mid)
         TreeInfo[2 * root + 1].sum += diff*(mid - left)
         TreeInfo[2 * root + 2].sum += diff*(right - mid)
     else if RangeQueryType = QueryTypes[1]               // get Min
-        TreeInfo[2 * root + 1].mValue += diff
-        TreeInfo[2 * root + 2].mValue += diff
+        TreeInfo[2 * root + 1].minValue += diff
+        TreeInfo[2 * root + 2].minValue += diff
     TreeInfo[root].lazy = 0
 
 update(int root, int left, int right, int s, int t, long long diff)
@@ -60,7 +60,7 @@ update(int root, int left, int right, int s, int t, long long diff)
         if RangeQueryType = QueryTypes[0]             // get Sum
             TreeInfo[root].sum += diff*(right - left)
         else if RangeQueryType = QueryTypes[1]        // get Min
-            TreeInfo[root].mValue += diff
+            TreeInfo[root].minValue += diff
         return
 
     mid = (left + right) / 2
@@ -87,7 +87,7 @@ getMinValue(int root, int left, int right, int s, int t)
         return INT_MAX
 
     if s <= left AND right <= t
-        return treeInfo[root].mValue
+        return treeInfo[root].minValue
 
     mid = (left + right) / 2
     pushDown(root, left, right, mid)
@@ -99,7 +99,7 @@ main()
     // Init
     TreeInfo[All].lazy = 0
     TreeInfo[All].sum = 0
-    TreeInfo[All].mValue = 0
+    TreeInfo[All].minValue = 0
     
     // input the number of data(N) and queries(Q).
     
