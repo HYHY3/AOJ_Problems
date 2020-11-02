@@ -1,0 +1,27 @@
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_D
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_E
+
+For a given sequence A = a0, a1, ..., an, there are two types command.
+1)DSL_2_D   : update(s,t,x): change as, as+1, ..., at to x.
+  DSL_2_E   : update(s,t,x): add x to as, as+1, ..., at.
+2)DSL_2_D(E): find(i)      : find the value of ai.
+
+Segment Tree algorithm
+if the height of root node is 0, and to make a Complete Binary Tree.
+so the size of all leaves node which is A sequence is between 2^(h-1) and 2^h.
+
+the size(allSize) of Complete Binary Tree
+= 2^0 + 2^1 + 2^2 + ... 2^(h-1) + 2^h
+= 2^(h+1) - 1
+= 2 * 2^h - 1 
+= 2 * limit - 1 // limit = 2^h
+
+Because of 2^(h-1) < n <= 2^h,
+2 * 2^h - 1 < 4*n - 1.
+allSize < 4*n - 1, so max size of Complete Binary Tree is 4*n.
+to store a Complete Binary Tree which has n number leaves node, make sure at least 4*n space.
+
+※the index of ai in treeInfo is i + offset, and offset
+= 2^0 + 2^1 + 2^2 + ... 2^(h-1)
+= 2^h - 1
+= limit - 1
