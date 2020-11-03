@@ -1,0 +1,11 @@
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_C
+
+For n points on a plane, find a set of points which are within in a given range.
+※use kd Tree to solve this problem.
+
+kd Tree Description ※(it looks like a k-dimensional(k>=2) Binary Search Tree)
+The k-d tree is a binary tree in which every leaf node is a k-dimensional point.
+Every non-leaf node can be thought of as implicitly generating a splitting hyperplane that
+divides the space into two parts, known as half-spaces.
+Points to the left of this hyperplane are represented by the left subtree of that node.
+Points to the right of the hyperplane are represented by the right subtree.
