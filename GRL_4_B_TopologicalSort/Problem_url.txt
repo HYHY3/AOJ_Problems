@@ -1,0 +1,11 @@
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_4_B
+
+Topological Sort:
+A directed acyclic graph (DAG) can be used to represent the ordering of tasks.
+Tasks are represented by vertices and constraints where one task can begin before another, are represented by edges
+
+For a given DAG,
+1)For each vertex u of the graph, calculate its indegree and push it into queue, if its indegree is 0.
+2)Pop(Print) the vertex which is in the queue, and delete the edges which are related to the vertex.
+3)calculate the indegree of vertices which are related to vertex deleted in step 2). if its indegree is 0, push it into queue.
+4)return to step 2) until queue is empty.
