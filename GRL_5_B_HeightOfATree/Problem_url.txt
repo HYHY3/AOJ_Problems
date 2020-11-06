@@ -1,0 +1,15 @@
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_B
+
+Height of a Tree:
+Given a tree T with non-negative weight, find the height of each node of the tree.
+For each node, the height is the distance to the most distant leaf node from the node.
+
+For a given undirected tree with non-negative weight,
+1)Find the diameter of this tree.(node u1 and u2 are the end point of the diameter respectively)
+2)For the rest of each node u(except u1,u2), the height is the longer distance between distance(u,u1) and distance(u,u2).
+※The Diameter of A Tree is the maximum distance between two nodes in a tree.
+
+※Algorithm Of The Diameter of A Tree:
+1)make a random node as starting node(u1), find the furthest node(u2) from this starting node(u1).
+2)make node u2 as starting node(u2), find the furthest node(u3) from this starting node(u2).
+3)distance between u2 and u3 is the The Diameter of this Tree.
