@@ -1,0 +1,11 @@
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_C
+
+Lowest Common Ancestor(LCA):
+For a rooted tree, find the lowest common ancestor of two nodes u and v.
+
+Algorithm Of LCA(Tarjan Algorithm):
+1)Use adjacency list to save tree information and query information respectively.
+2)Use dfs algorithm to get parent node information of each node.
+3)For one node u which is in the query, judge the another node v was visited or not be.
+  if the another node v was visited, the answer of this query is the lowest ancestor of node v(Union-Find),
+  otherwise, do nothing.
