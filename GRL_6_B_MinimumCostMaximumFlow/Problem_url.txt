@@ -1,0 +1,12 @@
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_6_B
+
+Minimum Cost Max Flow:
+Find the minimum cost to send a certain amount of flow(or max flow) through a flow network.
+The flow network is a directed graph where each edge e has capacity c(e) and cost d(e).
+Each edge e can send an amount of flow f(e) where f(e) <= c(e).
+Find the minimum value of ∑e(f(e)×d(e)) to send an amount of flow F(or max flow) from source s to sink t.
+
+Algorithm Of MCMF(Edmonds-Karp(based on Ford-Fulkerson) + SPFA(based on Bellman-Ford)):
+1)Find an Augmenting Path which is from s to t by SPFA(Single Source Shortest Path with Negative Edges).
+2)Find the minimum flow(edge) which belongs to the Augmenting Path found in step 1).
+3)calculate the cost of this Augmenting Path and return to step 1), until the Augmenting Path can not be found.
