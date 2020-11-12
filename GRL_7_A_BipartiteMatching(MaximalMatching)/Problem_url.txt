@@ -1,0 +1,30 @@
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_7_A
+
+Bipartite Matching:
+A Bipartite Graph G=(V,E) is a graph in which the vertex set V can be divided into two disjoint subsets X and Y,
+such that every edge eÅ∏E has one end point in X and the other end point in Y.
+
+Judgement of Bipartite Graph:Å¶use BFS only once to do next steps.
+1)Select a random vertex as starting vertex v0.
+2)Find all adjacency vertices started from v0(v1,v2,...,vn-1) and set the all adjacency vertices as v1(v2,v3,...,vn).
+Å¶v0Å®v1, v1Å®v2, v2Å®v3, ..., vn-2Å®vn-1, vn-1Å®vn.
+3)Return to step 2), until all vertices of the graph are visited.
+4)Make the even number vertices as set X(v0,v2,v4,...,v2i), and the odd number vertices as set Y(v1,v3,v5,...,v2i+1).
+5)For each edge of the graph, if the end points of the edge belong to set X and set Y respectively, the graph is Bipartite Graph.
+  Otherwise, is not Bipartite Graph.
+
+
+Maximal Matching Problem:
+A matching M is a subset of edges such that each node in V appears in at most one edge in M.
+
+Algorithm Of Maximal Matching Problem(Hungarian Algorithm):
+1)Find an Augmenting Path.
+2)Return to step 1), until the Augmenting Path can not be found.
+Å¶Augmenting Path:
+1)a path P of the graph started from set X(Y) and ended on set Y(X).
+2)the starting vertex and the ending vertex are not be visited.
+3)the order of each edge belonged to path P is that not matched(first) Å® matched Å® ... Å® not matched(last) mutually.
+Å¶the format of path P looks like:
+starting vertex Å® 
+not matched edge(first) Å® matched edge Å® ... Å® not matched edge Å® matched edge Å® not matched edge(last) Å®
+ending vertex.
