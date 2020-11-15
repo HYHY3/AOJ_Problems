@@ -1,0 +1,14 @@
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_D
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_E
+
+Range Query on a Tree:
+For a given weighted rooted tree T with the following operations:
+1)add(v,w):
+  GRL_5_D: add w to the weight of edge which connects node v and its parent only.
+  GRL_5_E: add w to the weight of all edges from the root to node v.
+2)getSum(u):
+  GRL_5_D(E): get the sum of weights of all edges from the root to node u.
+
+Algorithm Of Range Query on a Tree:※Segment Tree
+1)Use dfs algorithm to set each node as number 0(root),1,2,...,n-1,n from root.
+2)Create a Complete Binary Tree(Segment Tree) to achieve the operations.
