@@ -1,0 +1,17 @@
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_B
+
+Minimum-Cost Arborescence(MST of Directed Graph):
+For a given weighted directed graph G = (V, E),
+calculate the sum of the weights of edges of the Minimum-Cost Arborescence with the root r.
+
+
+ZhuLiu Algorithm: ※the information of graph is saved by edges information(start,to,weight).
+1)For each vertex which is not root, find the minimum indegree except self cycle.
+2)Judge the graph whether it has any unreachable vertex except root.
+  ※if the graph has an unreachable vertex, it has no MST and finish here. otherwise go to next step.
+3)Judge the graph whether it has cycle(s).
+  ※if the graph has not any cycle, print the answer of MST and finish here. otherwise go to next step.
+4)For each vertex in cycle, set the same new Id to it.
+5)For the rest vertices, set different new Id to them.
+6)Reset the edges information(new weight:if necessary and new endpoints Id:must) of the graph.
+7)Reset the number of vertices and Id of root.
