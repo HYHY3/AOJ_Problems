@@ -1,0 +1,31 @@
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=CGL_2_B
+
+Intersection Of Segment:
+For given two segments s1 and s2, judge that whether they are intersect or not.
+s1 is formed by end points p0 and p1, and s2 is formed by end points p2 and p3.
+
+Algorithm Of Intersection Of Segment:
+  if s1 and s2 are parallel
+      if s1 and s2 are not on a line (but parallel)
+          print(not intersection)
+      // s1 and s2 are parallel but on a line.
+      if s1 and s2 have the common space
+          print(intersection)
+      else
+          print(not intersection)
+  // s1 and s2 are not parallel
+  if p2 and p3 belong to different side of s1 respectively, and p0 and p1 belong to different side of s2 respectively.
+      print(intersection)
+  else
+      print(not intersection)
+
+※judgment of parallel or not: cross product of two vectors.(p0→p1 and p2→p3)
+※judgment of on a line or not: 
+  1)sort two end points of s1 as p0 to p1.(p0 <= p1)
+  2)sort two end points of s2 as p2 to p3.(p2 <= p3)
+  3)calculate cross product of two vectors.(p1→p2 and p1→p3)
+    ※if cross product is 0, they are on a line, otherwise not on a line.
+※judgment of two points are on the different side of segment(line) or not: 
+  1)calculate cross product of two vectors.(p0→p1 and p0→p2)
+  2)calculate cross product of two vectors.(p0→p1 and p0→p3)
+  3)if the result of step1) * the result of step2) > 0, they are on the same side of segment(line).
