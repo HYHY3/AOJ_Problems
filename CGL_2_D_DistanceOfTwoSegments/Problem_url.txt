@@ -1,0 +1,24 @@
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=CGL_2_D
+
+Distance Of Segment:
+For given two segments s1 and s2, calculate the distance between them.
+s1 is formed by end points p0 and p1, and s2 is formed by end points p2 and p3.
+
+Algorithm Of Distance Of Segment:
+  sort end points of segments respectively as p0 <= p1, p2 <= p3
+  if s1 and s2 are intersection
+      print(0)
+  if s1 and s2 are not intersection
+      if s1 and s2 are on the line
+          print( min(distance of p1 to p2, distance of p0 to p3) )
+      if s1 and s2 are not on the line
+          print( distance of point to segment )
+
+※judgment of segment intersection refers to problem CGL_2_B.
+※distance of point(p) to segment(end point a to end point b):
+  if p is on the left of a
+      distance = p to a
+  if p is on the right of b
+      distance = p to b
+  if p is between a and b
+      distance = the orthogonal line from p to segment ※use cross product
