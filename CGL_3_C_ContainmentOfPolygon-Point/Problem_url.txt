@@ -1,0 +1,22 @@
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=CGL_3_C
+
+Containment Of Polygon-Point:
+For a given polygon(not necessarily convex) g and a target point t, judge the position situations between them.
+situation 1: g contains t.
+situation 2: t is on a segment(edge) of g.
+situation 3: otherwise.
+※polygon g is represented by a sequence of points p1, p2,..., pn
+where line segments connecting pi and pi+1 (1 ≤ i ≤ n−1) are sides of the polygon.
+The line segment connecting pn and p1 is also a side of the polygon.
+
+Algorithm Of Containment Of Polygon-Point:
+1)find the Lower Left point(minimum x,y value) and Upper Right(maximum x,y value) point of g.
+2)if t is less than Lower Left or greater than Upper Right, finish(situation 3). otherwise go to step 3).
+3)if t is on the edge of g, finish(situation 2). otherwise go to step 4).
+4)calculate the number of cross-point between ray started from t and edge of g.
+if the number of cross-point is odd number, situation 1, otherwise(even number) situation 3.
+※if t is inside in g, the direction of first cross-point is out,
+  then the loop of in to out or may not exist. so the number of cross-point is 2n+1. // n is the loop number of in to out.
+※if t is outside of g and has no cross-point with g, so the number of cross-point is 0.
+  if t is outside of g and has cross-point with g, so the direction of first cross-point is in, then out from g.
+  then the loop of in to out or may not exist. so the number of cross-point is 2n+2. // n is the loop number of in to out.
